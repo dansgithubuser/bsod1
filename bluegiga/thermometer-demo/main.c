@@ -210,17 +210,8 @@ void ble_rsp_system_get_info(const struct ble_msg_system_get_info_rsp_t *msg)
 
 void ble_evt_gap_scan_response(const struct ble_msg_gap_scan_response_evt_t *msg)
 {
-    if (found_devices_count >= MAX_DEVICES) change_state(state_finish);
-
     int i;
     char *name = NULL;
-
-    // Check if this device already found
-    for (i = 0; i < found_devices_count; i++) {
-        if (!cmp_bdaddr(msg->sender, found_devices[i])) return;
-    }
-    found_devices_count++;
-    memcpy(found_devices[i].addr, msg->sender.addr, sizeof(bd_addr));
 
     // Parse data
     for (i = 0; i < msg->data.len; ) {
