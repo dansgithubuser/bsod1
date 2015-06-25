@@ -1,0 +1,23 @@
+﻿Build started 6/25/2015 3:46:58 PM.
+     1>Project "C:\Users\dan\Desktop\bsod1\msvc2013\bsod1.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D PLATFORM_WIN /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt "..\bluegiga\thermometer-demo\cmd_def.c" "..\bluegiga\thermometer-demo\main.c" "..\bluegiga\thermometer-demo\stubs.c" "..\bluegiga\thermometer-demo\uart.c"
+         cmd_def.c
+     1>..\bluegiga\thermometer-demo\cmd_def.c(350): warning C4244: '=' : conversion from 'uint16' to 'uint8', possible loss of data
+         main.c
+     1>..\bluegiga\thermometer-demo\main.c(330): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+         stubs.c
+         uart.c
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\dan\Desktop\bsod1\msvc2013\Release\bsod1.exe" /NOLOGO setupapi.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\dan\Desktop\bsod1\msvc2013\Release\bsod1.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\dan\Desktop\bsod1\msvc2013\Release\bsod1.lib" /MACHINE:X86 /SAFESEH Release\cmd_def.obj
+         Release\main.obj
+         Release\stubs.obj
+         Release\uart.obj
+         Generating code
+         Finished generating code
+         bsod1.vcxproj -> C:\Users\dan\Desktop\bsod1\msvc2013\Release\bsod1.exe
+     1>Done Building Project "C:\Users\dan\Desktop\bsod1\msvc2013\bsod1.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.51
