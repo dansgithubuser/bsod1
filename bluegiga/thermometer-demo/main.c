@@ -37,7 +37,7 @@
 #define CLARG_PORT 1
 #define CLARG_ACTION 2
 
-#define UART_TIMEOUT 1000
+#define UART_TIMEOUT 10
 
 #define MAX_DEVICES 64
 int found_devices_count = 0;
