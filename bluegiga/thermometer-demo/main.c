@@ -359,67 +359,14 @@ void ble_evt_connection_disconnected(const struct ble_msg_connection_disconnecte
 }
 
 int main(int argc, char *argv[]) {
-    char *uart_port = "";
-
-    // Not enough command-line arguments
-    if (argc <= CLARG_PORT) {
-        usage(argv[0]);
-        return 1;
-    }
-
-    // COM port argument
-    if (argc > CLARG_PORT) {
-        if (strcmp(argv[CLARG_PORT], "list") == 0) {
-            uart_list_devices();
-            return 1;
-        }
-        else {
-            uart_port = argv[CLARG_PORT];
-        }
-    }
-
-    // Action argument
-    if (argc > CLARG_ACTION) {
-        int i;
-        for (i = 0; i < strlen(argv[CLARG_ACTION]); i++) {
-            argv[CLARG_ACTION][i] = tolower(argv[CLARG_ACTION][i]);
-        }
-
-        if (strcmp(argv[CLARG_ACTION], "scan") == 0) {
-            action = action_scan;
-        }
-        else if (strcmp(argv[CLARG_ACTION], "info") == 0) {
-            action = action_info;
-        }
-        else {
-            int i;
-            short unsigned int addr[6];
-            if (sscanf(argv[CLARG_ACTION],
-                    "%02hx:%02hx:%02hx:%02hx:%02hx:%02hx",
-                    &addr[5],
-                    &addr[4],
-                    &addr[3],
-                    &addr[2],
-                    &addr[1],
-                    &addr[0]) == 6) {
-
-                for (i = 0; i < 6; i++) {
-                    connect_addr.addr[i] = addr[i];
-                }
-                action = action_connect;
-            }
-        }
-    }
-    if (action == action_none) {
-        usage(argv[0]);
-        return 1;
-    }
+    char uart_port[8];
+    unsigned i;
 
     bglib_output = output;
 
-    if (uart_open(uart_port)) {
-        printf("ERROR: Unable to open serial port\n");
-        return 1;
+    for (i=0; i<100; ++i){
+        sprintf(uart_port, "COM%d", i);
+        if (!uart_open(uart_port)) break;
     }
 
     // Reset dongle to get it into known state
@@ -430,17 +377,7 @@ int main(int argc, char *argv[]) {
     } while (uart_open(uart_port));
 
     // Execute action
-    if (action == action_scan) {
-        ble_cmd_gap_discover(gap_discover_observation);
-    }
-    else if (action == action_info) {
-        ble_cmd_system_get_info();
-    }
-    else if (action == action_connect) {
-        printf("Trying to connect\n");
-        change_state(state_connecting);
-        ble_cmd_gap_connect_direct(&connect_addr, gap_address_type_public, 40, 60, 100,0);
-    }
+    ble_cmd_gap_discover(gap_discover_observation);
 
     // Message loop
     while (state != state_finish) {
