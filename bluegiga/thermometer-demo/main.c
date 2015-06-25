@@ -21,7 +21,8 @@
 // MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
 //
 
-#include <unistd.h>
+//#include <unistd.h>
+#include <windows.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <ctype.h>
@@ -270,8 +271,9 @@ void ble_evt_connection_status(const struct ble_msg_connection_status_evt_t *msg
 
 void ble_evt_attclient_group_found(const struct ble_msg_attclient_group_found_evt_t *msg)
 {
+    uint16 uuid;
     if (msg->uuid.len == 0) return;
-    uint16 uuid = (msg->uuid.data[1] << 8) | msg->uuid.data[0];
+    uuid = (msg->uuid.data[1] << 8) | msg->uuid.data[0];
 
     // First thermometer service found
     if (state == state_finding_services && uuid == THERMOMETER_SERVICE_UUID && thermometer_handle_start == 0) {
@@ -424,7 +426,7 @@ int main(int argc, char *argv[]) {
     ble_cmd_system_reset(0);
     uart_close();
     do {
-        usleep(500000); // 0.5s
+        Sleep(500); // 0.5s
     } while (uart_open(uart_port));
 
     // Execute action
